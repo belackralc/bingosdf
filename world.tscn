@@ -1,0 +1,182 @@
+[gd_scene load_steps=12 format=3 uid="uid://c7qwmgbmeik8h"]
+
+[ext_resource type="PackedScene" uid="uid://bn0ecba4i2h3p" path="res://player.tscn" id="1_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://bmks5j6uvhy6i" path="res://vecteezy_seamless-abstract-pattern-with-many-geometric-dark-squared_11572645-1.jpg" id="2_036b0"]
+[ext_resource type="PackedScene" uid="uid://r1r1g5f8xiap" path="res://sd_card.tscn" id="2_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://btvg6eg2io046" path="res://mr_ferrin.tscn" id="3_036b0"]
+[ext_resource type="PackedScene" uid="uid://dntate8fsg8dr" path="res://hud.tscn" id="4_aqk2v"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_fj7yv"]
+
+[sub_resource type="Sky" id="Sky_tlwt5"]
+sky_material = SubResource("PhysicalSkyMaterial_fj7yv")
+
+[sub_resource type="Environment" id="Environment_aqk2v"]
+background_mode = 2
+background_energy_multiplier = 0.57
+sky = SubResource("Sky_tlwt5")
+sdfgi_enabled = true
+glow_enabled = true
+glow_bloom = 1.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_036b0"]
+vertices = PackedVector3Array(-24.5, 1, -24.5, -24.5, 1, 24.5, 24.5, 1, 24.5, 24.5, 1, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwbse"]
+albedo_texture = ExtResource("2_036b0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkg7o"]
+albedo_texture = ExtResource("2_036b0")
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_tlwt5")]
+transform = Transform3D(-0.061135694, 0, 0.9981295, 0, 1, 0, -0.9981295, 0, -0.061135694, 15.911846, 1.1291629, 17.997574)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.9931277, 0.08275616, -0.08275613, -7.3736715e-09, 0.70710677, 0.70710677, 0.11703485, 0.7022475, -0.70224756, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aqk2v")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_036b0")
+
+[node name="Floor" type="CSGCombiner3D" parent="NavigationRegion3D"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5220394, 20.688007)
+size = Vector3(50, 4, 1)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.056072, 0.38192058, -1.2663345)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.738
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.164625, 0.38192058, -1.2663345)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.738
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.691124, 0.38192058, -1.2663345)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.738
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(-4.482764e-09, 0, -1, 0, 1, 0, 0.10255369, 0, -4.371139e-08, -25.453348, 2.5220394, 17.916267)
+size = Vector3(50, 4, 1)
+material = SubResource("StandardMaterial3D_dwbse")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1.0183611, 0, 0, 0, 1, 0, 0, 0, 1, -0.482, 2.522, 14.889)
+size = Vector3(50, 4, 1)
+material = SubResource("StandardMaterial3D_pkg7o")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D4"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -2.9369059, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D4"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -10.287675, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D4"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -17.212238, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D4"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -19.710907, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1.0183611, 0, 0, 0, 1, 0, 0, 0, 1, -0.482, 5.0494003, 17.891424)
+size = Vector3(50, 1, 5)
+material = SubResource("StandardMaterial3D_pkg7o")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D5"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -2.9369059, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D5"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -10.287675, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D5"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -17.212238, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="NavigationRegion3D/Floor/CSGBox3D5"]
+transform = Transform3D(0.98196995, 0, 0, 0, 1, 0, 0, 0, 1, -19.710907, 0.38195992, 2.1329575)
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 8.437
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(0.14456314, 0, 0, 0, 1, 0, 0, 0, 1, -24.05242, 2.0153103, 13.0313635)
+operation = 2
+size = Vector3(10, 3, 10)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.095862, 0.36746085, 17.853197)
+
+[node name="SDCard" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.057774, 1.6153518, 17.898813)
+
+[node name="SDCard2" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1293545, 0.992463, 3.3201966)
+
+[node name="SDCard3" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0600591, 1.0286717, 5.68349)
+
+[node name="SDCard4" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 5.68349)
+
+[node name="SDCard5" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 7.185879)
+
+[node name="SDCard7" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 9.589642)
+
+[node name="SDCard8" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 9.589642)
+
+[node name="SDCard9" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 7.8444834)
+
+[node name="SDCard10" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 6.589405)
+
+[node name="SDCard6" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 8.47266)
+
+[node name="MrFerrin" parent="." instance=ExtResource("3_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.291811, 0.72837114, -12.001436)
+
+[node name="HUD" parent="." instance=ExtResource("4_aqk2v")]
